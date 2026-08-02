@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/medium_amethyst_bud",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "cross": "vansqmod:block/medium_rhodoheart_bud"
+  }
+}

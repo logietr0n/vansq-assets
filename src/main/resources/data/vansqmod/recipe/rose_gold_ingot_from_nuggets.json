@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "gold_ingot",
+  "key": {
+    "#": {
+      "item": "vansqmod:rose_gold_nugget"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "vansqmod:rose_gold_ingot"
+  }
+}

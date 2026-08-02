@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "vansqmod:item/rose_gold_sword"
+  }
+}

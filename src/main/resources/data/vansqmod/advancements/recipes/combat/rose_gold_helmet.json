@@ -1,0 +1,30 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_rose_gold": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": "vansqmod:rose_gold_ingot" }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "vansqmod:rose_gold_helmet"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_rose_gold"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "vansqmod:rose_gold_helmet"
+    ]
+  }
+}

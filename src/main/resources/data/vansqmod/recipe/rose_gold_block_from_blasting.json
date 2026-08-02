@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 900,
+  "experience": 18.0,
+  "ingredient": {
+    "item": "vansqmod:raw_rose_gold_block"
+  },
+  "result": {
+    "id": "vansqmod:rose_gold_block"
+  }
+}

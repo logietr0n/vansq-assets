@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=down": { "model": "vansqmod:block/medium_rhodoheart_bud", "x": 180 },
+    "facing=east": { "model": "vansqmod:block/medium_rhodoheart_bud", "x": 90, "y": 90 },
+    "facing=north": { "model": "vansqmod:block/medium_rhodoheart_bud", "x": 90 },
+    "facing=south": { "model": "vansqmod:block/medium_rhodoheart_bud", "x": 90, "y": 180 },
+    "facing=up": { "model": "vansqmod:block/medium_rhodoheart_bud" },
+    "facing=west": { "model": "vansqmod:block/medium_rhodoheart_bud", "x": 90, "y": 270 }
+  }
+}

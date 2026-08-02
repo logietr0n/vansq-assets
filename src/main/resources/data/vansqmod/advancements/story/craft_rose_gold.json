@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:story/iron_tools",
+  "criteria": {
+    "raw_rose_gold": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "vansqmod:raw_rose_gold"
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "vansqmod:raw_rose_gold",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.vansqmod.craft_rose_gold.title"
+    },
+    "description": {
+      "translate": "advancements.vansqmod.craft_rose_gold.description"
+    }
+  },
+  "requirements": [
+    [
+      "raw_rose_gold"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

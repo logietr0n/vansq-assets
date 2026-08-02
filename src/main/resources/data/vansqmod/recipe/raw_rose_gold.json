@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "netherite_ingot",
+  "ingredients": [
+    {
+      "item": "minecraft:raw_gold"
+    },
+    {
+      "item": "minecraft:raw_gold"
+    },
+    {
+      "item": "minecraft:raw_copper"
+    },
+    {
+      "item": "minecraft:raw_copper"
+    },
+    {
+      "item": "minecraft:raw_copper"
+    },
+    {
+      "item": "minecraft:raw_copper"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "vansqmod:raw_rose_gold"
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "caverns_and_chasms:magic_damage": {
+    "display": {
+      "mainhand": "flat",
+      "offhand": "flat",
+      "feet": "flat",
+      "legs": "flat",
+      "chest": "flat",
+      "head": "flat",
+      "potion": "flat"
+    },
+    "texture": "caverns_and_chasms:quark_attribute/magic_damage",
+    "compare": "higher_better"
+  },
+  "caverns_and_chasms:magic_protection": {
+    "display": {
+      "mainhand": "percentage",
+      "offhand": "percentage",
+      "feet": "percentage",
+      "legs": "percentage",
+      "chest": "percentage",
+      "head": "percentage",
+      "potion": "percentage"
+    },
+    "texture": "caverns_and_chasms:quark_attribute/magic_protection",
+    "compare": "higher_better"
+  },
+  "caverns_and_chasms:experience_boost": {
+    "display": {
+      "mainhand": "percentage",
+      "offhand": "percentage",
+      "feet": "percentage",
+      "legs": "percentage",
+      "chest": "percentage",
+      "head": "percentage",
+      "potion": "percentage"
+    },
+    "texture": "caverns_and_chasms:quark_attribute/experience_boost",
+    "compare": "higher_better"
+  },
+  "caverns_and_chasms:lifesteal": {
+    "display": {
+      "mainhand": "percentage",
+      "offhand": "percentage",
+      "feet": "percentage",
+      "legs": "percentage",
+      "chest": "percentage",
+      "head": "percentage",
+      "potion": "percentage"
+    },
+    "texture": "caverns_and_chasms:quark_attribute/lifesteal",
+    "compare": "higher_better"
+  },
+  "caverns_and_chasms:stealth": {
+    "display": {
+      "mainhand": "percentage",
+      "offhand": "percentage",
+      "feet": "percentage",
+      "legs": "percentage",
+      "chest": "percentage",
+      "head": "percentage",
+      "potion": "percentage"
+    },
+    "texture": "caverns_and_chasms:quark_attribute/stealth",
+    "compare": "higher_better"
+  },
+  "caverns_and_chasms:slowness_infliction": {
+    "display": {
+      "mainhand": "flat",
+      "offhand": "flat",
+      "feet": "flat",
+      "legs": "flat",
+      "chest": "flat",
+      "head": "flat",
+      "potion": "flat"
+    },
+    "texture": "caverns_and_chasms:quark_attribute/slowness_infliction",
+    "compare": "higher_better"
+  },
+  "caverns_and_chasms:slowness_retribution": {
+    "display": {
+      "mainhand": "flat",
+      "offhand": "flat",
+      "feet": "flat",
+      "legs": "flat",
+      "chest": "flat",
+      "head": "flat",
+      "potion": "flat"
+    },
+    "texture": "caverns_and_chasms:quark_attribute/slowness_retribution",
+    "compare": "higher_better"
+  },
+  "galosphere:illager_resistance": {
+    "display": {
+      "mainhand": "flat",
+      "offhand": "flat",
+      "feet": "flat",
+      "legs": "flat",
+      "chest": "flat",
+      "head": "flat",
+      "potion": "flat"
+    },
+    "texture": "galosphere:quark_attribute/illager_resistance",
+    "compare": "higher_better"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "vansqmod:raw_rose_gold_block"
+    }
+  ],
+  "result": {
+    "id": "vansqmod:raw_rose_gold",
+    "count": 9
+  }
+}

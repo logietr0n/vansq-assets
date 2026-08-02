@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "RRR",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "item": "vansqmod:raw_rose_gold"
+    }
+  },
+  "result": {
+    "id": "vansqmod:raw_rose_gold_block"
+  }
+}

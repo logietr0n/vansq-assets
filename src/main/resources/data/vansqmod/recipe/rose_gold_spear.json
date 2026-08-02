@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "vansqmod:rose_gold_ingot"
+    }
+  },
+  "pattern": [
+    "  X",
+    " # ",
+    "#  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:rose_gold_spear"
+  }
+}

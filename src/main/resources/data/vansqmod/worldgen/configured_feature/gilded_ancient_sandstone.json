@@ -1,0 +1,45 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "size": 12,
+    "discard_chance_on_air_exposure": 0.0,
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:sand"
+        },
+        "state": {
+          "Name": "vansqmod:gilded_ancient_sandstone"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "c:sandstone/blocks"
+        },
+        "state": {
+          "Name": "vansqmod:gilded_ancient_sandstone"
+        }
+      },
+      {
+        "state": {
+          "Name": "vansqmod:gilded_ancient_sandstone"
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:stone_ore_replaceables"
+        }
+      },
+      {
+        "state": {
+          "Name": "vansqmod:gilded_ancient_sandstone"
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:deepslate_ore_replaceables"
+        }
+      }
+    ]
+  }
+}

@@ -24,3 +24,17 @@ runs
 run-data
 
 repo
+
+# local dependency / decompiled mod sources (do not upload)
+libs/
+
+# local scratch / extract / tool outputs
+.tmp*/
+.tmp_*
+.vscode/
+cfr.jar
+com/
+data/
+DistantHorizons.neoforge.mixins.json
+gsparkle.txt
+walk_stop.txt

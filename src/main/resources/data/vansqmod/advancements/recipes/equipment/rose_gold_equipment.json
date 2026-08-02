@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_rose_gold_ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "vansqmod:rose_gold_ingot"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_rose_gold_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "vansqmod:rose_gold_sword",
+      "vansqmod:rose_gold_pickaxe",
+      "vansqmod:rose_gold_axe",
+      "vansqmod:rose_gold_shovel",
+      "vansqmod:rose_gold_hoe",
+      "vansqmod:rose_gold_helmet",
+      "vansqmod:rose_gold_chestplate",
+      "vansqmod:rose_gold_leggings",
+      "vansqmod:rose_gold_boots"
+    ]
+  }
+}

@@ -19,6 +19,9 @@ group = mod_group_id
 
 repositories {
     // Add here additional repositories if required by some of the dependencies below.
+    maven { url = "https://api.modrinth.com/maven" }
+    maven { url = "https://maven.theillusivec4.top/" }
+    flatDir { dirs 'libs' }
 }
 
 base {
@@ -129,6 +132,145 @@ dependencies {
 
     // Example project dependency using a sister or child project:
     // implementation project(":myproject")
+
+    compileOnly files("libs/quark-4.1-474.jar", "libs/musketmod-1.21.1-neoforge-1.5.4.jar")
+
+    // Compile against the same Barched version shipped in the modpack (0.0.12: spear(Tier, ...)).
+    def barchedJar = [
+            file('libs/barched-neoforge-0.0.12.jar'),
+            file("${System.getProperty('user.home')}/AppData/Roaming/ModrinthApp/profiles/Vanilla^2/mods/barched-neoforge-0.0.12.jar")
+    ].find { it.exists() }
+    if (barchedJar != null) {
+        compileOnly files(barchedJar)
+        localRuntime files(barchedJar)
+    } else {
+        throw new GradleException('Barched 0.0.12 jar not found; copy barched-neoforge-0.0.12.jar to libs/ (must match modpack).')
+    }
+
+    compileOnly project(':backpacks')
+    localRuntime project(':backpacks')
+
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    localRuntime "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+
+    def galosphereJar = (
+            fileTree('libs') { include 'Galosphere-*-NeoForge.jar' } +
+            fileTree("${System.getProperty('user.home')}/AppData/Roaming/ModrinthApp/profiles/Vanilla^2/mods") {
+                include 'Galosphere-*-NeoForge.jar'
+            }
+    ).files.findAll { it.name.toLowerCase().startsWith('galosphere-') }.max { it.lastModified() }
+    if (galosphereJar != null) {
+        compileOnly files(galosphereJar)
+    } else {
+        logger.warn('Galosphere jar not found for compileOnly; copy Galosphere-*-NeoForge.jar to libs/ to build galosphere mixins.')
+    }
+
+    def effortlessJar = [
+            file('libs/effortless-1.21.1-3.4.0.jar'),
+            file("${System.getProperty('user.home')}/AppData/Roaming/ModrinthApp/profiles/Vanilla^2/mods/effortless-1.21.1-3.4.0.jar")
+    ].find { it.exists() }
+    if (effortlessJar != null) {
+        compileOnly files(effortlessJar)
+    } else {
+        logger.warn('Effortless jar not found for compileOnly; copy effortless-1.21.1-3.4.0.jar to libs/ when editing effortless mixins.')
+    }
+
+    def beltborneJar = [
+            file('libs/beltborne_lanterns-1.2.5-neoforge+1.21.1.jar'),
+            file("${System.getProperty('user.home')}/AppData/Roaming/ModrinthApp/profiles/Vanilla^2/mods/beltborne_lanterns-1.2.5-neoforge+1.21.1.jar")
+    ].find { it.exists() }
+    if (beltborneJar != null) {
+        compileOnly files(beltborneJar)
+        localRuntime files(beltborneJar)
+    } else {
+        logger.warn('Beltborne Lanterns jar not found for compileOnly; copy beltborne_lanterns-*-neoforge+1.21.1.jar to libs/ to build beltborne integration.')
+    }
+
+    def dungeonsDelightJar = [
+            file('libs/neoforge-dungeonsdelight-1.21.1-1.5.0.jar'),
+            file("${System.getProperty('user.home')}/AppData/Roaming/ModrinthApp/profiles/Vanilla^2/mods/neoforge-dungeonsdelight-1.21.1-1.5.0.jar")
+    ].find { it.exists() }
+    if (dungeonsDelightJar != null) {
+        compileOnly files(dungeonsDelightJar)
+        localRuntime files(dungeonsDelightJar)
+    } else {
+        logger.warn('Dungeons Delight jar not found for compileOnly; copy neoforge-dungeonsdelight-*.jar to libs/ to build living fire integration.')
+    }
+
+    def endremJar = (
+            fileTree('libs') { include 'endrem-neoforge-*.jar' } +
+            fileTree("${System.getProperty('user.home')}/AppData/Roaming/ModrinthApp/profiles/Vanilla^2/mods") {
+                include 'endrem-neoforge-*.jar'
+            }
+    ).files.max { it.lastModified() }
+    if (endremJar != null) {
+        compileOnly files(endremJar)
+        localRuntime files(endremJar)
+    } else {
+        logger.warn('End Remastered jar not found for compileOnly; copy endrem-neoforge-*.jar to libs/ to build cryptic eye integration.')
+    }
+
+    def spyglassImprovementsJar = (
+            fileTree('libs') { include 'spyglass_improvements-*neoforge*.jar'; include 'spyglass_improvements-*+neoforge*.jar' } +
+            fileTree("${System.getProperty('user.home')}/AppData/Roaming/ModrinthApp/profiles/Vanilla^2/mods") {
+                include 'spyglass_improvements-*.jar'
+            }
+    ).files.findAll { it.name.contains('neoforge') || it.name.contains('+mc1.21') }.max { it.lastModified() }
+    if (spyglassImprovementsJar != null) {
+        compileOnly files(spyglassImprovementsJar)
+    } else {
+        logger.warn('Spyglass Improvements jar not found for compileOnly; copy spyglass_improvements-*-neoforge*.jar to libs/ to build astronomy compat.')
+    }
+
+    def combatNouveauJar = (
+            fileTree('libs') { include 'CombatNouveau-*.jar'; include 'combatnouveau-*.jar' } +
+            fileTree("${System.getProperty('user.home')}/AppData/Roaming/ModrinthApp/profiles/Vanilla^2/mods") {
+                include 'CombatNouveau-*.jar'
+                include 'combatnouveau-*.jar'
+            }
+    ).files.max { it.lastModified() }
+    if (combatNouveauJar != null) {
+        compileOnly files(combatNouveauJar)
+    } else {
+        logger.warn('Combat Nouveau jar not found for compileOnly; copy CombatNouveau-*-NeoForge.jar to libs/ to build sweeping tag integration.')
+    }
+
+    def mapAtlasesJar = (
+            fileTree('libs') { include 'map_atlases-*-neoforge.jar'; include 'map-atlases-*-neoforge.jar' } +
+            fileTree("${System.getProperty('user.home')}/AppData/Roaming/ModrinthApp/profiles/Vanilla^2/mods") {
+                include 'map_atlases-*-neoforge.jar'
+                include 'map-atlases-*-neoforge.jar'
+            }
+    ).files.max { it.lastModified() }
+    if (mapAtlasesJar != null) {
+        compileOnly files(mapAtlasesJar)
+    } else {
+        logger.warn('Map Atlases jar not found for compileOnly; copy map_atlases-*-neoforge.jar to libs/ to build HUD instrument gating.')
+    }
+
+    def distantHorizonsJar = (
+            fileTree('libs') { include 'DistantHorizons-*.jar' } +
+            fileTree("${System.getProperty('user.home')}/AppData/Roaming/ModrinthApp/profiles/Vanilla^2/mods") {
+                include 'DistantHorizons-*.jar'
+            }
+    ).files.max { it.lastModified() }
+    if (distantHorizonsJar != null) {
+        compileOnly files(distantHorizonsJar)
+    } else {
+        logger.warn('Distant Horizons jar not found for compileOnly; copy DistantHorizons-*.jar to libs/ to build cloud day/night fade.')
+    }
+
+    def yungsCaveBiomesJar = (
+            fileTree('libs') { include 'YungsCaveBiomes-*-NeoForge-*.jar' } +
+            fileTree("${System.getProperty('user.home')}/AppData/Roaming/ModrinthApp/profiles/Vanilla^2/mods") {
+                include 'YungsCaveBiomes-*-NeoForge-*.jar'
+            }
+    ).files.max { it.lastModified() }
+    if (yungsCaveBiomesJar != null) {
+        compileOnly files(yungsCaveBiomesJar)
+    } else {
+        logger.warn('YUNG\'s Cave Biomes jar not found for compileOnly; copy YungsCaveBiomes-*-NeoForge-*.jar to libs/ to build sandstorm fog compat.')
+    }
 
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html

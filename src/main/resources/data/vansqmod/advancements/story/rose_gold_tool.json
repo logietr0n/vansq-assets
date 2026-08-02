@@ -1,0 +1,33 @@
+{
+  "parent": "vansqmod:story/alloy_matey",
+  "criteria": {
+    "rose_gold_pickaxe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "vansqmod:rose_gold_pickaxe"
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "vansqmod:rose_gold_pickaxe",
+      "count": 1
+    },
+    "title": {
+      "translate": "advancements.vansqmod.rose_gold_tool.title"
+    },
+    "description": {
+      "translate": "advancements.vansqmod.rose_gold_tool.description"
+    }
+  },
+  "requirements": [
+    [
+      "rose_gold_pickaxe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

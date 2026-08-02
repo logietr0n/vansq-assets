@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "vansqmod:item/deepslate_upgrade_smithing_template"
+  }
+}
+

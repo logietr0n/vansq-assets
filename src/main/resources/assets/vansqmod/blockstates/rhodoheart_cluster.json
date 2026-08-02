@@ -1,0 +1,56 @@
+{
+  "variants": {
+    "facing=down,pollinated=false": {
+      "model": "vansqmod:block/rhodoheart_cluster",
+      "x": 180
+    },
+    "facing=down,pollinated=true": {
+      "model": "vansqmod:block/glinted_rhodoheart_cluster",
+      "x": 180
+    },
+    "facing=east,pollinated=false": {
+      "model": "vansqmod:block/rhodoheart_cluster",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,pollinated=true": {
+      "model": "vansqmod:block/glinted_rhodoheart_cluster",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north,pollinated=false": {
+      "model": "vansqmod:block/rhodoheart_cluster",
+      "x": 90
+    },
+    "facing=north,pollinated=true": {
+      "model": "vansqmod:block/glinted_rhodoheart_cluster",
+      "x": 90
+    },
+    "facing=south,pollinated=false": {
+      "model": "vansqmod:block/rhodoheart_cluster",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,pollinated=true": {
+      "model": "vansqmod:block/glinted_rhodoheart_cluster",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up,pollinated=false": {
+      "model": "vansqmod:block/rhodoheart_cluster"
+    },
+    "facing=up,pollinated=true": {
+      "model": "vansqmod:block/glinted_rhodoheart_cluster"
+    },
+    "facing=west,pollinated=false": {
+      "model": "vansqmod:block/rhodoheart_cluster",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,pollinated=true": {
+      "model": "vansqmod:block/glinted_rhodoheart_cluster",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

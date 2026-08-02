@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "lit=false": { "model": "vansqmod:block/lichen_moss_carpet" },
+    "lit=true": { "model": "vansqmod:block/lichen_moss_carpet_lit" }
+  }
+}
+

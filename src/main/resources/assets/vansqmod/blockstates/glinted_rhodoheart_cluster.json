@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "facing=down": { "model": "vansqmod:block/glinted_rhodoheart_cluster", "x": 180 },
+    "facing=east": { "model": "vansqmod:block/glinted_rhodoheart_cluster", "x": 90, "y": 90 },
+    "facing=north": { "model": "vansqmod:block/glinted_rhodoheart_cluster", "x": 90 },
+    "facing=south": { "model": "vansqmod:block/glinted_rhodoheart_cluster", "x": 90, "y": 180 },
+    "facing=up": { "model": "vansqmod:block/glinted_rhodoheart_cluster" },
+    "facing=west": { "model": "vansqmod:block/glinted_rhodoheart_cluster", "x": 90, "y": 270 }
+  }
+}
+

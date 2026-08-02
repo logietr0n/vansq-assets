@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "vansqmod:block/glinted_rhodoheart_cluster"
+  },
+  "display": {
+    "head": {
+      "translation": [ 0, 14, -5 ]
+    }
+  }
+}
+

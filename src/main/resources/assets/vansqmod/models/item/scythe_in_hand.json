@@ -1,0 +1,7 @@
+{
+  "parent": "vansqmod:custom/scythe",
+  "textures": {
+    "0": "vansqmod:block/scythe",
+    "particle": "vansqmod:block/scythe"
+  }
+}

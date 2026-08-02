@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "yungscavebiomes:lost_caves",
+  "features": "vansqmod:gilded_ancient_sandstone",
+  "step": "underground_ores"
+}
