@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "p": {
+      "item": "galosphere:palladium_ingot"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "ppp",
+    "  s",
+    " s "
+  ],
+  "result": {
+    "count": 1,
+    "id": "vansqmod:scythe"
+  }
+}

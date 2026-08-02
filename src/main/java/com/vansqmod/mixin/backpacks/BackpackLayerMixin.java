@@ -1,0 +1,28 @@
+package com.vansqmod.mixin.backpacks;
+
+import com.spydnel.backpacks.client.rendering.BackpackLayer;
+import com.vansqmod.integration.backpacks.BackpackEquipment;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
+
+@Mixin(BackpackLayer.class)
+public final class BackpackLayerMixin {
+
+    @Redirect(
+            method = "render",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/entity/LivingEntity;getItemBySlot(Lnet/minecraft/world/entity/EquipmentSlot;)Lnet/minecraft/world/item/ItemStack;"
+            )
+    )
+    private ItemStack vansqmod$renderFromBackSlot(LivingEntity entity, EquipmentSlot slot) {
+        if (slot == EquipmentSlot.CHEST) {
+            return BackpackEquipment.getEquippedBackpack(entity).orElse(ItemStack.EMPTY);
+        }
+        return entity.getItemBySlot(slot);
+    }
+}

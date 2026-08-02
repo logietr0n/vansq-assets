@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "vansqmod:gilded_ancient_sandstone",
+    "vansqmod:rhodoheart_block",
+    "vansqmod:small_rhodoheart_bud",
+    "vansqmod:medium_rhodoheart_bud",
+    "vansqmod:large_rhodoheart_bud",
+    "vansqmod:rhodoheart_cluster",
+    "vansqmod:glinted_rhodoheart_cluster"
+  ]
+}

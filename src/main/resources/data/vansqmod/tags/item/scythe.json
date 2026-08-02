@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "vansqmod:scythe",
+    {
+      "id": "born_in_chaos_v1:nightmare_scythe",
+      "required": false
+    }
+  ]
+}

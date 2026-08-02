@@ -1,0 +1,18 @@
+{
+  "values": [
+    "caverns_and_chasms:toolbelt",
+    "#beltborne_lanterns:lamps",
+    "caverns_and_chasms:copper_lantern",
+    "caverns_and_chasms:cupric_lantern",
+    "caverns_and_chasms:exposed_copper_lantern",
+    "caverns_and_chasms:oxidized_copper_lantern",
+    "caverns_and_chasms:waxed_copper_lantern",
+    "caverns_and_chasms:waxed_exposed_copper_lantern",
+    "caverns_and_chasms:waxed_oxidized_copper_lantern",
+    "caverns_and_chasms:waxed_weathered_copper_lantern",
+    "caverns_and_chasms:weathered_copper_lantern",
+    "dungeonsdelight:living_lantern",
+    "minecraft:lantern",
+    "minecraft:soul_lantern"
+  ]
+}

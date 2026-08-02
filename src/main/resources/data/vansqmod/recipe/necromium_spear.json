@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "tag": "c:ingots/necromium"
+  },
+  "base": {
+    "item": "minecraft:diamond_spear"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:necromium_spear"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

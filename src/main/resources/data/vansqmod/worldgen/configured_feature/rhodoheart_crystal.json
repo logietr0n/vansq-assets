@@ -1,0 +1,10 @@
+{
+  "type": "vansqmod:rhodoheart_crystal",
+  "config": {
+    "crystal_chance": 0.35,
+    "glimmering_cluster_chance": 0.0,
+    "small_bud_chance": 0.25,
+    "medium_bud_chance": 0.2,
+    "large_bud_chance": 0.15
+  }
+}
