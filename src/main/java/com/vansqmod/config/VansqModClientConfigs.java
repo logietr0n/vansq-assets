@@ -9,5 +9,6 @@ public final class VansqModClientConfigs {
     public static void loadAll() {
         CustomTooltipConfig.load();
         ItemNameColorConfig.load();
+        BlockedEntityConfig.load();
     }
 }

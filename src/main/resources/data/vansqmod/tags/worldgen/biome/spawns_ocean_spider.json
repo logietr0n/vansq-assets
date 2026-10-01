@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:ocean",
+    "minecraft:deep_ocean",
+    "minecraft:lukewarm_ocean",
+    "minecraft:deep_lukewarm_ocean",
+    "minecraft:warm_ocean",
+    {
+      "id": "clifftree:kelp_forest",
+      "required": false
+    },
+    {
+      "id": "clifftree:stone_ocean",
+      "required": false
+    }
+  ]
+}

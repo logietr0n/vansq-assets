@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "galosphere:palladium_block"
+  },
+  "base": {
+    "item": "minecraft:shield"
+  },
+  "result": {
+    "id": "vansqmod:palladium_bulwark"
+  },
+  "template": {
+    "item": "vansqmod:deepslate_upgrade_smithing_template"
+  }
+}

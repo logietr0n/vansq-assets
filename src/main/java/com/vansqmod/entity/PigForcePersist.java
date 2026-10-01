@@ -33,6 +33,17 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @EventBusSubscriber(modid = VansqMod.MODID)
 public final class PigForcePersist {
 
+    /**
+     * Temporarily disabled (2026-09) while investigating a suspected link to server
+     * freezes/"Can't keep up" spirals reported while idling in a swamp. This flag
+     * short-circuits every entry point (event handlers and the methods the pig
+     * mixins call into) so the whole watch/recovery system is inert without having
+     * to touch the mixin registrations themselves. The original missing-pig bug this
+     * was written for may no longer reproduce on the current mod set - re-enable by
+     * flipping this back to true once that's confirmed one way or the other.
+     */
+    private static final boolean ENABLED = false;
+
     private static final int MAX_WATCH_TICKS = 40;
     /** Wait for chunk-load add to finish before treating a pig as missing. */
     private static final int DISK_LOAD_GRACE_TICKS = 5;
@@ -100,6 +111,9 @@ public final class PigForcePersist {
 
     @SubscribeEvent
     public static void onBabySpawn(BabyEntitySpawnEvent event) {
+        if (!ENABLED) {
+            return;
+        }
         if (event.getChild() instanceof Pig pig && !pig.level().isClientSide()) {
             markBreedingChild(pig);
         }
@@ -107,7 +121,7 @@ public final class PigForcePersist {
 
     /** Marks a piglet so force-persist never overwrites its parent-derived variant. */
     public static void markBreedingChild(Pig pig) {
-        if (pig == null || pig.level().isClientSide()) {
+        if (!ENABLED || pig == null || pig.level().isClientSide()) {
             return;
         }
         BREEDING_CHILDREN.put(pig.getUUID(), pig.level().getGameTime() + 200L);
@@ -118,7 +132,7 @@ public final class PigForcePersist {
      * recoverable so pigs persist across leave/rejoin.
      */
     public static void markIntentionalRemoval(Entity entity, Entity.RemovalReason reason) {
-        if (!(entity instanceof Pig) || entity.level().isClientSide()) {
+        if (!ENABLED || !(entity instanceof Pig) || entity.level().isClientSide()) {
             return;
         }
         if (reason != Entity.RemovalReason.KILLED && reason != Entity.RemovalReason.DISCARDED) {
@@ -130,7 +144,7 @@ public final class PigForcePersist {
     }
 
     public static void onAddFinished(ServerLevel level, Pig pig, boolean addReturned) {
-        if (RECOVERY_DEPTH.get() > 0) {
+        if (!ENABLED || RECOVERY_DEPTH.get() > 0) {
             return;
         }
         if (addReturned && isPresent(level, pig)) {
@@ -141,7 +155,7 @@ public final class PigForcePersist {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onJoinDone(EntityJoinLevelEvent event) {
-        if (event.getLevel().isClientSide() || !(event.getLevel() instanceof ServerLevel level)) {
+        if (!ENABLED || event.getLevel().isClientSide() || !(event.getLevel() instanceof ServerLevel level)) {
             return;
         }
         if (!(event.getEntity() instanceof Pig pig) || event.isCanceled() || RECOVERY_DEPTH.get() > 0) {
@@ -189,6 +203,9 @@ public final class PigForcePersist {
 
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent.Post event) {
+        if (!ENABLED) {
+            return;
+        }
         if (WATCHES.isEmpty() && INTENTIONAL_REMOVALS.isEmpty() && BREEDING_CHILDREN.isEmpty()) {
             return;
         }
@@ -344,7 +361,7 @@ public final class PigForcePersist {
      * Bypass EntityJoinLevelEvent and clear any orphaned UUID reservation.
      */
     public static boolean forceAddPig(ServerLevel level, Pig pig, String reason) {
-        if (RECOVERY_DEPTH.get() >= MAX_RECOVERY_ATTEMPTS) {
+        if (!ENABLED || RECOVERY_DEPTH.get() >= MAX_RECOVERY_ATTEMPTS) {
             return false;
         }
         if (pig.isRemoved()) {

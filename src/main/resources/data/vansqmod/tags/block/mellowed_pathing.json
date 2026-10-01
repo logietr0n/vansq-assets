@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:glow_lichen",
+    "vansqmod:lichen_moss_carpet",
+    {
+      "id": "galosphere:lichen_moss",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "caverns_and_chasms:necromium_ingot"
+  },
+  "base": {
+    "item": "shieldexp:diamond_shield"
+  },
+  "result": {
+    "id": "vansqmod:necromium_guard"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  }
+}

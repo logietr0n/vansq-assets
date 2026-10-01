@@ -12,3 +12,5 @@ rootProject.name = 'vansqmod'
 
 include 'backpacks'
 project(':backpacks').projectDir = file('libs/backpacks')
+
+include 'goatman'

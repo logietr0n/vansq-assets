@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "born_in_chaos_v1:death_totem",
+      "required": false
+    },
+    {
+      "id": "the_beyond:totem_of_respite",
+      "required": false
+    },
+    {
+      "id": "artifacts:chorus_totem",
+      "required": false
+    }
+  ]
+}

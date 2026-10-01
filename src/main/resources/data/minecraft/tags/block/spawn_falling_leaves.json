@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "artistry:aspen_leaves",
+    "artistry:rotten_leaves",
+    "deeperdarker:echo_leaves",
+    "galosphere:opal_leaves",
+    "quark:blue_blossom_leaves",
+    "quark:lavender_blossom_leaves",
+    "quark:orange_blossom_leaves",
+    "quark:red_blossom_leaves",
+    "quark:yellow_blossom_leaves",
+    "dappled_up:orange_poplar_leaves",
+    "dappled_up:red_poplar_leaves",
+    "dappled_up:yellow_poplar_leaves"
+  ]
+}

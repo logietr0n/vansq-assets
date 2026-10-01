@@ -29,12 +29,18 @@ public final class ConfigTextColor {
 
     public static @Nullable ChatFormatting namedFormatting(String colorName) {
         String normalized = colorName.toLowerCase(Locale.ROOT).replace(' ', '_');
-        for (ChatFormatting fmt : ChatFormatting.values()) {
-            if (fmt.isColor() && fmt.getName().equals(normalized)) {
-                return fmt;
+        return switch (normalized) {
+            case "light_gray", "lightgray", "grey", "light_grey", "lightgrey" -> ChatFormatting.GRAY;
+            case "dark_grey", "darkgrey" -> ChatFormatting.DARK_GRAY;
+            default -> {
+                for (ChatFormatting fmt : ChatFormatting.values()) {
+                    if (fmt.isColor() && fmt.getName().equals(normalized)) {
+                        yield fmt;
+                    }
+                }
+                yield null;
             }
-        }
-        return null;
+        };
     }
 
     public static @Nullable TextColor parseHex(String hex) {

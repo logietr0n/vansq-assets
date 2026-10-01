@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:is_badlands",
+    "#minecraft:is_savanna",
+    "minecraft:desert",
+    {
+      "id": "#c:is_hot",
+      "required": false
+    },
+    {
+      "id": "#c:is_desert",
+      "required": false
+    },
+    {
+      "id": "yungscavebiomes:lost_caves",
+      "required": false
+    }
+  ]
+}

@@ -1,14 +1,22 @@
 package com.vansqmod.registry;
 
 import com.vansqmod.VansqMod;
+import com.vansqmod.compat.RoseGoldDoubucklerItem;
+import com.vansqmod.entity.RareChickenVariants;
 import com.vansqmod.item.RhodoheartShardItem;
+import com.vansqmod.item.GoldenMaggotItem;
+import com.vansqmod.item.SoulFireballItem;
+import com.vansqmod.item.VansqKnifeItem;
 import net.minecraft.ChatFormatting;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.AxeItem;
@@ -48,6 +56,19 @@ public class ModItems {
             ITEMS.register("rhodoheart_shard",
                     () -> new RhodoheartShardItem(new Item.Properties()));
 
+    /**
+     * Fried maggot clone: nutrition 2, saturation modifier 0.95 (vanilla fried maggot is 0.7,
+     * which restores 2.8 saturation; +1 saturation point → 3.8 → modifier 0.95).
+     */
+    public static final DeferredItem<GoldenMaggotItem> GOLDEN_MAGGOT =
+            ITEMS.register("golden_maggot",
+                    () -> new GoldenMaggotItem(new Item.Properties()
+                            .stacksTo(64)
+                            .food(new FoodProperties.Builder()
+                                    .nutrition(2)
+                                    .saturationModifier(0.95F)
+                                    .build())));
+
     // Rose Gold Tools
     public static final DeferredItem<SwordItem> ROSE_GOLD_SWORD =
             ITEMS.register("rose_gold_sword",
@@ -58,7 +79,7 @@ public class ModItems {
     // Rose Gold Knife (Farmer's Delight-compatible via item tag)
     public static final DeferredItem<SwordItem> ROSE_GOLD_KNIFE =
             ITEMS.register("rose_gold_knife",
-                    () -> new SwordItem(ModTiers.ROSE_GOLD,
+                    () -> new VansqKnifeItem(ModTiers.ROSE_GOLD,
                             new Item.Properties()
                                     // Final attack damage = 1.0 + tierBonus + itemBonus = 1.25
                                     .attributes(SwordItem.createAttributes(ModTiers.ROSE_GOLD, -2.25F, 6.0F))));
@@ -156,4 +177,66 @@ public class ModItems {
                     () -> new ArmorItem(ModArmorMaterials.ROSE_GOLD_ARMOR_MATERIAL,
                             ArmorItem.Type.BOOTS,
                             new Item.Properties().durability(299)));
+
+    public static final DeferredItem<SpawnEggItem> MELLOWED_SPAWN_EGG =
+            ITEMS.register("mellowed_spawn_egg",
+                    () -> new SpawnEggItem(
+                            ModEntityTypes.MELLOWED.get(),
+                            0x6B7A72,
+                            0x95BCAB,
+                            new Item.Properties()));
+
+    public static final DeferredItem<SpawnEggItem> PUTRID_SPAWN_EGG =
+            ITEMS.register("putrid_spawn_egg",
+                    () -> new SpawnEggItem(
+                            ModEntityTypes.PUTRID.get(),
+                            0x4F6B1B,
+                            0xFFD907,
+                            new Item.Properties()));
+
+    public static final DeferredItem<SpawnEggItem> BOULDERING_ZOMBIE_SPAWN_EGG =
+            ITEMS.register("bouldering_zombie_spawn_egg",
+                    () -> new SpawnEggItem(
+                            ModEntityTypes.BOULDERING_ZOMBIE.get(),
+                            0x773727,
+                            0x6D7B7F,
+                            new Item.Properties()));
+
+    public static final DeferredItem<SoulFireballItem> SOUL_FIRE_CHARGE =
+            ITEMS.register("soul_fire_charge",
+                    () -> new SoulFireballItem(new Item.Properties().stacksTo(64).fireResistant()));
+
+    public static final DeferredItem<Item> TWEED =
+            ITEMS.register("tweed",
+                    () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<ShieldItem> PALLADIUM_BULWARK =
+            ITEMS.register("palladium_bulwark",
+                    () -> new ShieldItem(new Item.Properties().durability(250)));
+
+    public static final DeferredItem<ShieldItem> SILVER_TARGE =
+            ITEMS.register("silver_targe",
+                    () -> new ShieldItem(new Item.Properties().durability(96)));
+
+    public static final DeferredItem<ShieldItem> CHAOS_FORTRESS =
+            ITEMS.register("chaos_fortress",
+                    () -> new ShieldItem(new Item.Properties().durability(500).fireResistant()));
+
+    public static final DeferredItem<ShieldItem> NECROMIUM_GUARD =
+            ITEMS.register("necromium_guard",
+                    () -> new ShieldItem(new Item.Properties().durability(607).fireResistant()));
+
+    public static final DeferredItem<Item> ROSE_GOLD_DOUBUCKLER =
+            ITEMS.register("rose_gold_doubuckler", RoseGoldDoubucklerItem::create);
+
+    public static final DeferredItem<Item> RARE_EGG =
+            ITEMS.register("rare_egg", RareChickenVariants::createEgg);
+
+    public static final DeferredItem<Item> GOLDEN_CROWN =
+            ITEMS.register("golden_crown",
+                    () -> new Item(new Item.Properties().stacksTo(1)));
+
+    public static final DeferredItem<Item> SILVER_CROWN =
+            ITEMS.register("silver_crown",
+                    () -> new Item(new Item.Properties().stacksTo(1)));
 }

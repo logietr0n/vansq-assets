@@ -3,12 +3,15 @@ package com.vansqmod.compat;
 import com.vansqmod.VansqMod;
 import com.vansqmod.mixin.PlayerEnchantedDamageInvoker;
 import com.vansqmod.registry.ModItemTags;
-import com.vansqmod.registry.ModParticleTypes;
+import com.vansqmod.registry.ModSoundEvents;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,6 +29,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.PlayLevelSoundEvent;
 import net.neoforged.neoforge.event.entity.player.SweepAttackEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,7 +43,7 @@ import java.util.UUID;
  * Grants Combat Nouveau-style sweeping (no Sweeping Edge required) only to
  * {@link ModItemTags#SWEEPING}.
  * <p>
- * Knives use tooltip attack damage only. Scythes match a fully charged primary hit:
+ * Knives use tooltip attack damage only and may sweep while airborne. Scythes match a fully charged primary hit:
  * live attack-damage attribute + per-target enchant bonuses (Smite, Sharpness, etc.)
  * and post-attack enchant effects.
  */
@@ -51,6 +55,10 @@ public final class SweepingTagHandler {
     private static final Map<UUID, Long> CLAIMED_FX = new HashMap<>();
     private static final ThreadLocal<Boolean> REENTRANT = ThreadLocal.withInitial(() -> Boolean.FALSE);
 
+    /** Shared air-sweep SFX. Scythes can use a different pitch later without a new sound. */
+    private static final float SWEEP_PITCH = 1.0F;
+    private static final float SCYTHE_SWEEP_PITCH = 0.6F;
+
     private SweepingTagHandler() {
     }
 
@@ -58,11 +66,23 @@ public final class SweepingTagHandler {
         return !stack.isEmpty() && stack.is(ModItemTags.SWEEPING);
     }
 
+    public static boolean isKnifeWeapon(ItemStack stack) {
+        return !stack.isEmpty() && stack.is(KnifeNoKnockbackHandler.TOOLS_KNIFE);
+    }
+
+    public static float sweepPitch(ItemStack weapon) {
+        return weapon.is(ModItemTags.SCYTHE) ? SCYTHE_SWEEP_PITCH : SWEEP_PITCH;
+    }
+
     public static boolean meetsSweepStance(Player player) {
         if (player.getAttackStrengthScale(0.5F) <= 0.9F) {
             return false;
         }
-        if (!player.onGround() || player.isSprinting()) {
+        if (player.isSprinting()) {
+            return false;
+        }
+        // Knives can sweep while jumping / falling; scythes and other sweeping items cannot.
+        if (!player.onGround() && !isKnifeWeapon(player.getMainHandItem())) {
             return false;
         }
         double walked = player.walkDist - player.walkDistO;
@@ -247,41 +267,22 @@ public final class SweepingTagHandler {
     }
 
     /**
-     * Sweep sound + particle. Scythes get a farther / larger slash particle only;
-     * hitbox and damage are unchanged.
+     * Shared sweep sound for {@code #vansqmod:sweeping}; slash particle is vanilla sweep_attack.
+     * Combat Nouveau air-sweeps run on the server only, so the attacker must not be excluded.
      */
-    private static void playSweepFx(Player player, ItemStack weapon) {
+    public static void playSweepFx(Player player, ItemStack weapon) {
+        float pitch = sweepPitch(weapon);
         player.level().playSound(
                 null,
                 player.getX(),
                 player.getY(),
                 player.getZ(),
-                SoundEvents.PLAYER_ATTACK_SWEEP,
+                ModSoundEvents.SWEEP.get(),
                 player.getSoundSource(),
                 1.0F,
-                1.0F
+                pitch
         );
-
-        if (!weapon.is(ModItemTags.SCYTHE) || !(player.level() instanceof ServerLevel serverLevel)) {
-            player.sweepAttack();
-            return;
-        }
-
-        // Vanilla places the slash 1 block ahead; scythe reach is 4.0 → half-reach (~2).
-        double dist = player.entityInteractionRange() * 0.5D;
-        double forwardX = -Mth.sin(player.getYRot() * ((float) Math.PI / 180.0F));
-        double forwardZ = Mth.cos(player.getYRot() * ((float) Math.PI / 180.0F));
-        serverLevel.sendParticles(
-                ModParticleTypes.SCYTHE_SWEEP.get(),
-                player.getX() + forwardX * dist,
-                player.getY(0.5D),
-                player.getZ() + forwardZ * dist,
-                0,
-                forwardX,
-                0.0D,
-                forwardZ,
-                0.0D
-        );
+        player.sweepAttack();
     }
 
     public static void performFullDamageSweep(Player player, Entity primaryTarget) {
@@ -340,5 +341,49 @@ public final class SweepingTagHandler {
         if (!player.level().isClientSide) {
             performFullDamageSweep(player, event.getTarget());
         }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public static void onVanillaSweepSound(PlayLevelSoundEvent.AtPosition event) {
+        replaceVanillaSweepSound(event, findSweepingPlayer(event.getLevel(), event.getPosition()));
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public static void onVanillaSweepSound(PlayLevelSoundEvent.AtEntity event) {
+        Entity entity = event.getEntity();
+        Player player = entity instanceof Player p ? p : null;
+        if (player == null || !isSweepingWeapon(player.getMainHandItem())) {
+            return;
+        }
+        replaceVanillaSweepSound(event, player);
+    }
+
+    private static void replaceVanillaSweepSound(PlayLevelSoundEvent event, @Nullable Player player) {
+        if (player == null || !isVanillaSweepSound(event.getSound())) {
+            return;
+        }
+        event.setSound(ModSoundEvents.SWEEP);
+        event.setNewPitch(sweepPitch(player.getMainHandItem()));
+    }
+
+    private static boolean isVanillaSweepSound(@Nullable Holder<SoundEvent> sound) {
+        return sound != null && sound.value() == SoundEvents.PLAYER_ATTACK_SWEEP;
+    }
+
+    @Nullable
+    private static Player findSweepingPlayer(Level level, Vec3 pos) {
+        Player best = null;
+        double bestDist = 0.25D;
+        for (Player player : level.players()) {
+            if (!isSweepingWeapon(player.getMainHandItem())) {
+                continue;
+            }
+            double dist = player.distanceToSqr(pos);
+            if (dist < bestDist) {
+                bestDist = dist;
+                best = player;
+            }
+        }
+        return best;
     }
 }

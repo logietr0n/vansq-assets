@@ -32,22 +32,21 @@ public final class ToolbeltSkySetSupport {
     }
 
     /**
-     * @return true if Sky Set mid-air placement was handled (caller should cancel the original {@code use}).
+     * @return the replacement use result if Sky Set mid-air placement was handled, otherwise {@code null}.
      */
-    public static boolean trySkySetUse(
+    public static InteractionResultHolder<ItemStack> trySkySetUse(
             Item item,
             Level level,
             Player player,
-            InteractionHand hand,
-            CallbackResult callback
+            InteractionHand hand
     ) {
         if (hasSkySet(player.getItemBySlot(EquipmentSlot.LEGS))) {
-            return false;
+            return null;
         }
 
         ItemStack belt = ToolbeltEquipment.getEquippedToolbelt(player).orElse(ItemStack.EMPTY);
         if (!hasSkySet(belt)) {
-            return false;
+            return null;
         }
 
         double reach = player.blockInteractionRange() - 2.0D;
@@ -58,8 +57,7 @@ public final class ToolbeltSkySetSupport {
                 eyeLoc, scaled, ClipContext.Block.OUTLINE, ClipContext.Fluid.ANY, player));
 
         InteractionResult useOnResult = item.useOn(new UseOnContext(player, hand, blockResult));
-        callback.apply(new InteractionResultHolder<>(useOnResult, player.getItemInHand(hand)));
-        return true;
+        return new InteractionResultHolder<>(useOnResult, player.getItemInHand(hand));
     }
 
     private static boolean hasSkySet(ItemStack stack) {
@@ -76,10 +74,5 @@ public final class ToolbeltSkySetSupport {
             }
         }
         return false;
-    }
-
-    @FunctionalInterface
-    public interface CallbackResult {
-        void apply(InteractionResultHolder<ItemStack> result);
     }
 }

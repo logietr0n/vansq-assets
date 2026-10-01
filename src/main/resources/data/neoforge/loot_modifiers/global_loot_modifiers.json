@@ -1,6 +1,7 @@
 {
   "entries": [
-    "vansqmod:add_deepslate_upgrade_abandoned_mineshaft"
+    "vansqmod:add_deepslate_upgrade_abandoned_mineshaft",
+    "vansqmod:add_antidote_vessel"
   ],
   "replace": false
 }

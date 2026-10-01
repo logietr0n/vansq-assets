@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "born_in_chaos_v1:missioner",
+      "required": false
+    },
+    {
+      "id": "born_in_chaos_v1:lifestealer_true_form",
+      "required": false
+    },
+    {
+      "id": "galosphere:berserker",
+      "required": false
+    },
+    {
+      "id": "mutantmonsters:mutant_enderman",
+      "required": false
+    }
+  ]
+}

@@ -1,20 +1,29 @@
 package com.vansqmod.integration.backpacks;
 
 import com.spydnel.backpacks.registry.BPItems;
+import com.spydnel.backpacks.registry.BPSounds;
 import com.vansqmod.VansqMod;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import top.theillusivec4.curios.api.CuriosApi;
+
+import java.util.Objects;
 
 @EventBusSubscriber(modid = VansqMod.MODID)
 public final class BackpackCuriosIntegration {
@@ -61,7 +70,43 @@ public final class BackpackCuriosIntegration {
 
     @SubscribeEvent
     public static void onItemEntityPickup(ItemEntityPickupEvent.Pre event) {
-        BackpackPickupHandler.onItemEntityPickup(event);
+        try {
+            handleFilledBackpackPickup(event);
+        } catch (Throwable t) {
+            VansqMod.LOGGER.error("Failed to handle backpack item pickup", t);
+        }
+    }
+
+    /**
+     * Filled backpacks on the ground equip into Curios {@code back} instead of the inventory.
+     * Kept in this class so player ticks never lazy-load a second handler class.
+     */
+    private static void handleFilledBackpackPickup(ItemEntityPickupEvent.Pre event) {
+        ItemEntity itemEntity = event.getItemEntity();
+        ItemStack itemStack = itemEntity.getItem();
+        boolean hasContainer = itemStack.has(DataComponents.CONTAINER);
+        boolean isEmpty = Objects.equals(itemStack.get(DataComponents.CONTAINER), ItemContainerContents.EMPTY);
+
+        if (itemStack.is(BPItems.BACKPACK) && hasContainer && !isEmpty) {
+            Player player = event.getPlayer();
+            if (BackpackEquipment.getEquippedBackpack(player).isEmpty()
+                    && !itemEntity.hasPickUpDelay()) {
+                BackpackEquipment.setEquippedBackpack(player, itemStack);
+                player.level().playSound(
+                        null,
+                        player.blockPosition(),
+                        BPSounds.BACKPACK_EQUIP.value(),
+                        SoundSource.PLAYERS,
+                        1.0F,
+                        1.1F
+                );
+                player.take(itemEntity, 1);
+                itemEntity.discard();
+                player.awardStat(Stats.ITEM_PICKED_UP.get(itemStack.getItem()), 1);
+                player.onItemPickup(itemEntity);
+            }
+            event.setCanPickup(TriState.FALSE);
+        }
     }
 
     /** Moves a legacy chest-slot backpack onto Curios {@code back} after login. */

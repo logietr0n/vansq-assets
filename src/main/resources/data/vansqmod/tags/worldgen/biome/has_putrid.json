@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:swamp",
+    "minecraft:mangrove_swamp",
+    {
+      "id": "#c:is_swamp",
+      "required": false
+    },
+    {
+      "id": "#c:swamp",
+      "required": false
+    },
+    {
+      "id": "#clifftree:is_swamp",
+      "required": false
+    },
+    {
+      "id": "clifftree:bog",
+      "required": false
+    },
+    {
+      "id": "#variantsandventures:collections/swamps",
+      "required": false
+    }
+  ]
+}

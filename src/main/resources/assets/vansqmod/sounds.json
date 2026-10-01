@@ -1,0 +1,158 @@
+{
+  "entity.mellowed.ambient": {
+    "sounds": [
+      "vansqmod:mob/mellowed/ambient1",
+      "vansqmod:mob/mellowed/ambient2",
+      "vansqmod:mob/mellowed/ambient3",
+      "vansqmod:mob/mellowed/ambient4"
+    ],
+    "subtitle": "subtitles.entity.mellowed.ambient"
+  },
+  "entity.mellowed.hurt": {
+    "sounds": [
+      "vansqmod:mob/mellowed/hurt1",
+      "vansqmod:mob/mellowed/hurt2",
+      "vansqmod:mob/mellowed/hurt3",
+      "vansqmod:mob/mellowed/hurt4"
+    ],
+    "subtitle": "subtitles.entity.mellowed.hurt"
+  },
+  "entity.mellowed.death": {
+    "sounds": [
+      "vansqmod:mob/mellowed/death"
+    ],
+    "subtitle": "subtitles.entity.mellowed.death"
+  },
+  "entity.mellowed.step": {
+    "sounds": [
+      "vansqmod:mob/mellowed/step1",
+      "vansqmod:mob/mellowed/step2",
+      "vansqmod:mob/mellowed/step3",
+      "vansqmod:mob/mellowed/step4"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.bouldering_zombie.ambient": {
+    "sounds": [
+      "vansqmod:mob/bouldering_zombie/say1",
+      "vansqmod:mob/bouldering_zombie/say2",
+      "vansqmod:mob/bouldering_zombie/say3"
+    ],
+    "subtitle": "subtitles.entity.bouldering_zombie.ambient"
+  },
+  "entity.bouldering_zombie.hurt": {
+    "sounds": [
+      "vansqmod:mob/bouldering_zombie/hurt1",
+      "vansqmod:mob/bouldering_zombie/hurt2"
+    ],
+    "subtitle": "subtitles.entity.bouldering_zombie.hurt"
+  },
+  "entity.bouldering_zombie.death": {
+    "sounds": [
+      "vansqmod:mob/bouldering_zombie/death"
+    ],
+    "subtitle": "subtitles.entity.bouldering_zombie.death"
+  },
+  "entity.bouldering_zombie.step": {
+    "sounds": [
+      "vansqmod:mob/bouldering_zombie/step1",
+      "vansqmod:mob/bouldering_zombie/step2",
+      "vansqmod:mob/bouldering_zombie/step3",
+      "vansqmod:mob/bouldering_zombie/step4",
+      "vansqmod:mob/bouldering_zombie/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "music.boss.wither.intro": {
+    "sounds": [
+      {
+        "name": "vansqmod:music/boss/wither_1",
+        "stream": true
+      }
+    ]
+  },
+  "music.boss.wither.loop": {
+    "sounds": [
+      {
+        "name": "vansqmod:music/boss/wither_2",
+        "stream": true
+      }
+    ]
+  },
+  "music.boss.missionary.intro": {
+    "sounds": [
+      {
+        "name": "vansqmod:music/boss/missionary_1",
+        "stream": true
+      }
+    ]
+  },
+  "music.boss.missionary.loop": {
+    "sounds": [
+      {
+        "name": "vansqmod:music/boss/missionary_2",
+        "stream": true
+      }
+    ]
+  },
+  "music.boss.enderman.intro": {
+    "sounds": [
+      {
+        "name": "vansqmod:music/boss/enderman_1",
+        "stream": true
+      }
+    ]
+  },
+  "music.boss.enderman.loop": {
+    "sounds": [
+      {
+        "name": "vansqmod:music/boss/enderman_2",
+        "stream": true
+      }
+    ]
+  },
+  "music.boss.berserker.intro": {
+    "sounds": [
+      {
+        "name": "vansqmod:music/boss/berserker_1",
+        "stream": true
+      }
+    ]
+  },
+  "music.boss.berserker.loop": {
+    "sounds": [
+      {
+        "name": "vansqmod:music/boss/berserker_2",
+        "stream": true
+      }
+    ]
+  },
+  "music.boss.void_worm.loop": {
+    "sounds": [
+      {
+        "name": "vansqmod:music/boss/void_1",
+        "stream": true
+      }
+    ]
+  },
+  "music.boss.void_worm.outro": {
+    "sounds": [
+      {
+        "name": "vansqmod:music/boss/void_2",
+        "stream": true
+      }
+    ]
+  },
+  "item.knife_sweeping.sweep": {
+    "sounds": [
+      { "name": "vansqmod:item/knife_sweeping/sweep1", "volume": 0.7 },
+      { "name": "vansqmod:item/knife_sweeping/sweep2", "volume": 0.7 },
+      { "name": "vansqmod:item/knife_sweeping/sweep3", "volume": 0.7 },
+      { "name": "vansqmod:item/knife_sweeping/sweep4", "volume": 0.7 },
+      { "name": "vansqmod:item/knife_sweeping/sweep5", "volume": 0.7 },
+      { "name": "vansqmod:item/knife_sweeping/sweep6", "volume": 0.7 },
+      { "name": "vansqmod:item/knife_sweeping/sweep7", "volume": 0.7 }
+    ],
+    "subtitle": "subtitles.item.knife_sweeping.sweep"
+  }
+}

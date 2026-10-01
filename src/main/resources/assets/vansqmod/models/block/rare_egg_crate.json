@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "up": "vansqmod:block/rare_egg_crate_top",
+    "down": "vansqmod:block/rare_egg_crate_bottom",
+    "north": "vansqmod:block/rare_egg_crate_side",
+    "south": "vansqmod:block/rare_egg_crate_side",
+    "east": "vansqmod:block/rare_egg_crate_side",
+    "west": "vansqmod:block/rare_egg_crate_side",
+    "particle": "vansqmod:block/rare_egg_crate_side"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "entities": ["vansqmod:putrid"],
+  "slots": [
+    "head",
+    "necklace",
+    "belt",
+    "hands",
+    "feet"
+  ]
+}

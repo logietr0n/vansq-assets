@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "incubation"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "vansqmod:rare_egg_crate"
+    }
+  ],
+  "result": {
+    "id": "vansqmod:rare_egg",
+    "count": 9
+  }
+}

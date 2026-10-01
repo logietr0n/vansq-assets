@@ -1,0 +1,6 @@
+{
+  "entity_type": [
+    "netherexp:vessel"
+  ],
+  "texture": "vansqmod:textures/entity/enchant_eye/enchanted_vessel_eyes.png"
+}

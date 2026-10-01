@@ -1,0 +1,17 @@
+{
+  "values": [
+    "incubation:hay_nest",
+    "incubation:hay_chicken_nest",
+    "incubation:hay_duck_nest",
+    "incubation:hay_turkey_nest",
+    {
+      "id": "vbincubationcompat:hay_brown_nest",
+      "required": false
+    },
+    {
+      "id": "vbincubationcompat:hay_blue_nest",
+      "required": false
+    },
+    "vansqmod:hay_rare_nest"
+  ]
+}

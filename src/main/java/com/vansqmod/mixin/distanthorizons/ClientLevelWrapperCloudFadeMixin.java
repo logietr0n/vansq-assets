@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.awt.Color;
 
 /**
- * Smoothly fades Distant Horizons LOD clouds by lerping their color toward the sky.
- * Nighttime hide is handled by {@link CloudRenderHandlerDayNightMixin}.
+ * Fades Distant Horizons LOD clouds by alpha from the time of day.
+ * Full-night hide is handled by {@link CloudRenderHandlerDayNightMixin}.
  */
 @Mixin(
         targets = "com.seibel.distanthorizons.common.wrappers.world.ClientLevelWrapper_neoforge",
@@ -29,6 +29,7 @@ public abstract class ClientLevelWrapperCloudFadeMixin {
 
         ClientLevel level = Minecraft.getInstance().level;
         if (level == null || !level.dimensionType().hasSkyLight()) {
+            DhCloudDayNight.showOpaque();
             return;
         }
 

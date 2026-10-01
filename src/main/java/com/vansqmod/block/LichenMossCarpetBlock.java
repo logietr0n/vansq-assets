@@ -26,7 +26,7 @@ public class LichenMossCarpetBlock extends CarpetBlock {
 
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-        if (!entity.isSteppingCarefully()) {
+        if (LichenMossLighting.canLightFrom(entity)) {
             if (!state.getValue(LIT) && !level.isClientSide) {
                 level.setBlock(pos, state.setValue(LIT, true), 2);
                 level.scheduleTick(pos, this, 100);
@@ -37,7 +37,7 @@ public class LichenMossCarpetBlock extends CarpetBlock {
 
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (!entity.isSteppingCarefully()) {
+        if (LichenMossLighting.canLightFrom(entity)) {
             if (!state.getValue(LIT) && !level.isClientSide) {
                 level.setBlock(pos, state.setValue(LIT, true), 2);
                 level.scheduleTick(pos, this, 100);
@@ -66,7 +66,8 @@ public class LichenMossCarpetBlock extends CarpetBlock {
         // Carpet is only 1/16th tall; only treat entities as "standing on it"
         // if they intersect a thin slice above the block.
         AABB standingSlice = new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1.0D, pos.getY() + 0.2D, pos.getZ() + 1.0D);
-        boolean noEntityStandingOnCarpet = level.getEntitiesOfClass(Entity.class, standingSlice).isEmpty();
+        boolean noEntityStandingOnCarpet = level.getEntitiesOfClass(
+                Entity.class, standingSlice, LichenMossLighting::keepsLit).isEmpty();
         boolean shouldUnlight = state.getValue(LIT) && !level.hasNeighborSignal(pos) && noEntityStandingOnCarpet;
         if (shouldUnlight) {
             level.setBlock(pos, state.cycle(LIT), 2);

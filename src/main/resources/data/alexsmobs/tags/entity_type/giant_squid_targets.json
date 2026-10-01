@@ -1,0 +1,89 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "spider_overhaul:ocean_spider",
+      "required": false
+    },
+    {
+      "id": "tide:ocean_perch",
+      "required": false
+    },
+    {
+      "id": "tide:red_snapper",
+      "required": false
+    },
+    {
+      "id": "tide:flounder",
+      "required": false
+    },
+    {
+      "id": "tide:anchovy",
+      "required": false
+    },
+    {
+      "id": "tide:tuna",
+      "required": false
+    },
+    {
+      "id": "tide:mackerel",
+      "required": false
+    },
+    {
+      "id": "tide:snook",
+      "required": false
+    },
+    {
+      "id": "tide:angelfish",
+      "required": false
+    },
+    {
+      "id": "tide:mahi_mahi",
+      "required": false
+    },
+    {
+      "id": "tide:sailfish",
+      "required": false
+    },
+    {
+      "id": "tide:swordfish",
+      "required": false
+    },
+    {
+      "id": "tide:manta_ray",
+      "required": false
+    },
+    {
+      "id": "tide:aquathorn",
+      "required": false
+    },
+    {
+      "id": "tide:great_white_shark",
+      "required": false
+    },
+    {
+      "id": "tide:anglerfish",
+      "required": false
+    },
+    {
+      "id": "tide:abyss_angler",
+      "required": false
+    },
+    {
+      "id": "tide:luminescent_jellyfish",
+      "required": false
+    },
+    {
+      "id": "tide:crystal_shrimp",
+      "required": false
+    },
+    {
+      "id": "tide:pentapus",
+      "required": false
+    },
+    {
+      "id": "tide:coelacanth",
+      "required": false
+    }
+  ]
+}

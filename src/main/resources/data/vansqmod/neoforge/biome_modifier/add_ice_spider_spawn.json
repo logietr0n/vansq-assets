@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:false"
+    }
+  ],
+  "type": "neoforge:add_spawns",
+  "biomes": "#vansqmod:spawns_ice_spider",
+  "spawners": {
+    "type": "spider_overhaul:ice_spider",
+    "weight": 1,
+    "minCount": 1,
+    "maxCount": 1
+  },
+  "spawnGroup": "monster"
+}

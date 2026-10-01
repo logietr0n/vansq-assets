@@ -7,15 +7,19 @@ import com.vansqmod.block.GlintedRhodoheartClusterBlock;
 import com.vansqmod.block.LichenMossCarpetBlock;
 import com.vansqmod.block.RhodoheartBlock;
 import com.vansqmod.block.RhodoheartPollinatedClusterBlock;
+import com.vansqmod.block.ForcedSoulFireBlock;
 import com.vansqmod.compat.RhodoheartSoundTypes;
 import net.minecraft.world.level.block.AmethystClusterBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.util.valueproviders.ConstantInt;
 
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -63,6 +67,20 @@ public class ModBlocks {
 
     public static final DeferredItem<BlockItem> GILDED_ANCIENT_SANDSTONE_ITEM =
             ITEMS.registerSimpleBlockItem("gilded_ancient_sandstone", GILDED_ANCIENT_SANDSTONE);
+
+    public static final DeferredBlock<Block> PERMAFROST_PALLADIUM_ORE =
+            BLOCKS.register("permafrost_palladium_ore",
+                    () -> new DropExperienceBlock(
+                            ConstantInt.of(0),
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                                    .strength(4.5F, 3.0F)
+                                    .requiresCorrectToolForDrops()
+                                    .sound(SoundType.DEEPSLATE)
+                    ));
+
+    public static final DeferredItem<BlockItem> PERMAFROST_PALLADIUM_ORE_ITEM =
+            ITEMS.registerSimpleBlockItem("permafrost_palladium_ore", PERMAFROST_PALLADIUM_ORE);
 
     // Raw Rose Gold Block
     public static final DeferredBlock<Block> RAW_ROSE_GOLD_BLOCK =
@@ -164,4 +182,19 @@ public class ModBlocks {
 
     public static final DeferredItem<BlockItem> GLINTED_RHODOHEART_CLUSTER_ITEM =
             ITEMS.registerSimpleBlockItem("glinted_rhodoheart_cluster", GLINTED_RHODOHEART_CLUSTER);
+
+    /** Soul fire that survives/spreads like regular fire. No item; soul fireballs place it. */
+    public static final DeferredBlock<ForcedSoulFireBlock> SOUL_FIRE =
+            BLOCKS.register("soul_fire",
+                    () -> new ForcedSoulFireBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                                    .replaceable()
+                                    .noCollission()
+                                    .instabreak()
+                                    .lightLevel(state -> 10)
+                                    .sound(SoundType.WOOL)
+                                    .pushReaction(PushReaction.DESTROY)
+                                    .randomTicks()
+                    ));
 }

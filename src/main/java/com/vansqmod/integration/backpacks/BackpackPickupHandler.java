@@ -2,21 +2,16 @@ package com.vansqmod.integration.backpacks;
 
 import com.spydnel.backpacks.common.items.BackpackItem;
 import com.spydnel.backpacks.registry.BPBlocks;
-import com.spydnel.backpacks.registry.BPItems;
 import com.spydnel.backpacks.registry.BPSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -25,13 +20,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.util.TriState;
-import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
-
-import java.util.Objects;
 
 /**
- * Place/pickup for backpacks on Curios {@code back}, plus filled-backpack ground pickup rules.
+ * Place/pickup for backpacks on Curios {@code back}.
  */
 public final class BackpackPickupHandler {
 
@@ -95,27 +86,6 @@ public final class BackpackPickupHandler {
         }
 
         return false;
-    }
-
-    public static void onItemEntityPickup(ItemEntityPickupEvent.Pre event) {
-        ItemEntity itemEntity = event.getItemEntity();
-        ItemStack itemStack = itemEntity.getItem();
-        boolean hasContainer = itemStack.has(DataComponents.CONTAINER);
-        boolean isEmpty = Objects.equals(itemStack.get(DataComponents.CONTAINER), ItemContainerContents.EMPTY);
-
-        if (itemStack.is(BPItems.BACKPACK) && hasContainer && !isEmpty) {
-            Player player = event.getPlayer();
-            if (BackpackEquipment.getEquippedBackpack(player).isEmpty()
-                    && !itemEntity.hasPickUpDelay()) {
-                BackpackEquipment.setEquippedBackpack(player, itemStack);
-                playEquipSound(player.level(), player);
-                player.take(itemEntity, 1);
-                itemEntity.discard();
-                player.awardStat(Stats.ITEM_PICKED_UP.get(itemStack.getItem()), 1);
-                player.onItemPickup(itemEntity);
-            }
-            event.setCanPickup(TriState.FALSE);
-        }
     }
 
     private static void playEquipSound(Level level, Player player) {

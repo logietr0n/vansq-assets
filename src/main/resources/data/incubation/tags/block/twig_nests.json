@@ -1,0 +1,17 @@
+{
+  "values": [
+    "incubation:twig_nest",
+    "incubation:twig_chicken_nest",
+    "incubation:twig_duck_nest",
+    "incubation:twig_turkey_nest",
+    {
+      "id": "vbincubationcompat:twig_brown_nest",
+      "required": false
+    },
+    {
+      "id": "vbincubationcompat:twig_blue_nest",
+      "required": false
+    },
+    "vansqmod:twig_rare_nest"
+  ]
+}

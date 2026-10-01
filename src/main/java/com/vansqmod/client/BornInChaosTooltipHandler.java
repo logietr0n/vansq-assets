@@ -66,17 +66,7 @@ public final class BornInChaosTooltipHandler {
 
         List<Component> tip = event.getToolTip();
         for (int i = tip.size() - 1; i >= 1; i--) {
-            if (shouldStripDescriptionLine(tip.get(i), i)) {
-                tip.remove(i);
-            }
-        }
-        collapseConsecutiveBlankLines(tip);
-    }
-
-    /** After stripping description lines, BiC often leaves stacked empty rows; vanilla uses a single gap after the name. */
-    private static void collapseConsecutiveBlankLines(List<Component> tip) {
-        for (int i = tip.size() - 1; i > 0; i--) {
-            if (isBlankLine(tip.get(i)) && isBlankLine(tip.get(i - 1))) {
+            if (shouldStripDescriptionLine(tip.get(i), i) || isBlankLine(tip.get(i))) {
                 tip.remove(i);
             }
         }

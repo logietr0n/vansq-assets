@@ -44,13 +44,46 @@ public final class CustomTooltipHandler {
 
         List<Component> tip = event.getToolTip();
         if (entry.placement() == TooltipPlacement.BOTTOM) {
-            tip.addAll(entry.lines());
+            for (Component line : entry.lines()) {
+                tip.add(CustomTooltipConfig.prepareTooltipLine(line));
+            }
             return;
         }
 
         int insertAt = Math.min(1, tip.size());
         for (Component line : entry.lines()) {
-            tip.add(insertAt++, line);
+            tip.add(insertAt++, CustomTooltipConfig.prepareTooltipLine(line));
+        }
+    }
+
+    /**
+     * Re-apply config colors last so later tooltip handlers cannot leave these lines white.
+     */
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void restoreTooltipColors(ItemTooltipEvent event) {
+        ItemStack stack = event.getItemStack();
+        if (stack.isEmpty()) {
+            return;
+        }
+        ResourceLocation id = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        if (id == null) {
+            return;
+        }
+        CustomTooltipEntry entry = CustomTooltipConfig.entryFor(id);
+        if (entry == null || entry.isEmpty()) {
+            return;
+        }
+
+        List<Component> originals = entry.lines();
+        List<Component> tip = event.getToolTip();
+        for (int i = 1; i < tip.size(); i++) {
+            String text = tip.get(i).getString();
+            for (Component original : originals) {
+                if (text.equals(original.getString())) {
+                    tip.set(i, CustomTooltipConfig.prepareTooltipLine(original));
+                    break;
+                }
+            }
         }
     }
 }

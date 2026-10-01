@@ -1,37 +1,49 @@
 package com.vansqmod.client;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import java.awt.Color;
 
 /**
- * Day/night visibility for Distant Horizons LOD clouds.
+ * Day/night opacity for Distant Horizons LOD clouds.
  * <p>
- * Smooth fade is done by lerping cloud RGB toward the current sky color
- * (works even when the render path ignores alpha). At full night, rendering
- * is disabled entirely via {@code setActive(false)}.
+ * Opacity is a function of {@link ClientLevel#getTimeOfDay(float)} only, so
+ * skipping the clock lands on the alpha that moment would have had. At full
+ * night, rendering is disabled via {@code setActive(false)}.
+ * <p>
+ * The box color Distant Horizons uploaded is left alone. Changing it at the
+ * start of the fade rebuilds the mesh a frame late and draws the old solid
+ * white clouds once. Alpha is a shader uniform, applied after the lightmap
+ * and face shading.
  */
 @OnlyIn(Dist.CLIENT)
 public final class DhCloudDayNight {
 
-    /** Sun height where clouds are fully visible. */
-    private static final float FULL_DAY_SUN = 0.2F;
+    /**
+     * Sun height where clouds are fully opaque. The window is half as wide as
+     * the previous dusk fade, centered on the same part of the day.
+     */
+    private static final float FULL_DAY_SUN = 0.325F;
     /** Sun height where clouds are fully hidden. */
-    private static final float FULL_NIGHT_SUN = -0.05F;
-    /** Quantize so DH's color-equality cache is not invalidated every frame. */
-    private static final float VISIBILITY_STEPS = 32.0F;
+    private static final float FULL_NIGHT_SUN = -0.125F;
+    /** Quantize so the fade steps stay stable within a tick. */
+    private static final float VISIBILITY_STEPS = 64.0F;
+    /** Fully lit clouds stay slightly see-through. The fade scales down from this. */
+    private static final float MAX_OPACITY = 0.8F;
+
+    private static float renderedVisibility = 1.0F;
+    /** Sky dimensions draw clouds in the transparent layer. Dimensions without a sky do not. */
+    private static boolean layerActive;
 
     private DhCloudDayNight() {
     }
 
     /**
      * @param timeOfDay {@link ClientLevel#getTimeOfDay(float)}
-     * @return cloud visibility in {@code [0, 1]}
+     * @return cloud opacity in {@code [0, 1]}
      */
     public static float visibility(float timeOfDay) {
         float sun = Mth.cos(timeOfDay * ((float) Math.PI * 2.0F));
@@ -45,29 +57,34 @@ public final class DhCloudDayNight {
         return visibility(timeOfDay) > 0.0F;
     }
 
+    /** Visibility sampled from the same tick the cloud color was read. */
+    public static float renderedVisibility() {
+        return renderedVisibility;
+    }
+
+    /** Dimensions without a sky keep the normal opaque clouds. */
+    public static void showOpaque() {
+        renderedVisibility = 1.0F;
+        layerActive = false;
+    }
+
+    /** Sky clouds are drawn in the single transparent layer, capped at {@link #MAX_OPACITY}. */
+    public static boolean usesLayer() {
+        return layerActive && renderedVisibility > 0.0F;
+    }
+
+    /** Opacity for the cloud layer, from fully hidden up to {@link #MAX_OPACITY}. */
+    public static float layerAlpha() {
+        return renderedVisibility * MAX_OPACITY;
+    }
+
     /**
-     * Blends cloud color toward sky color as visibility drops.
-     * Opaque RGB match hides clouds against the sky without needing alpha blend.
+     * Records the fade for this frame and returns {@code cloud} unchanged.
+     * Alpha is applied later, once, for the whole cloud layer.
      */
     public static Color applyFade(Color cloud, ClientLevel level, float partialTick) {
-        float visibility = visibility(level.getTimeOfDay(partialTick));
-        if (visibility >= 0.999F) {
-            return cloud;
-        }
-
-        Vec3 camera = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
-        Vec3 sky = level.getSkyColor(camera, partialTick);
-
-        // visibility 1 → cloud color; visibility 0 → sky color
-        int r = Mth.clamp(Math.round(Mth.lerp(visibility, (float) sky.x, cloud.getRed() / 255.0F) * 255.0F), 0, 255);
-        int g = Mth.clamp(Math.round(Mth.lerp(visibility, (float) sky.y, cloud.getGreen() / 255.0F) * 255.0F), 0, 255);
-        int b = Mth.clamp(Math.round(Mth.lerp(visibility, (float) sky.z, cloud.getBlue() / 255.0F) * 255.0F), 0, 255);
-        // Keep alpha as a bonus for render paths that honor it; RGB sky-match is the real fade.
-        int a = Mth.clamp(Math.round(visibility * 255.0F), 0, 255);
-
-        if (cloud.getRed() == r && cloud.getGreen() == g && cloud.getBlue() == b && cloud.getAlpha() == a) {
-            return cloud;
-        }
-        return new Color(r, g, b, a);
+        renderedVisibility = visibility(level.getTimeOfDay(partialTick));
+        layerActive = true;
+        return cloud;
     }
 }

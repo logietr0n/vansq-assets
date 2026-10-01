@@ -30,8 +30,8 @@ public class FarmersDelightKnifeStatsMixin {
                         && tier.getSpeed() == 4.0F
                         && tier.getAttackDamageBonus() == 1.0F;
 
-        // Caller-built knives only (see {@link com.vansqmod.compat.AbnormalsDelightNecromiumKnifeCompat}). AD registers
-        // necromium knife without calling this helper.
+        // Caller-built knives only. AD necromium knife is registered without this helper;
+        // its stats live in {@link com.vansqmod.compat.PackItemAttributes}.
         // BlueprintItemTier NECROMIUM: durability 2031, damage bonus 3. Vanilla Netherite also uses 2031 but bonus 4.
         boolean isNecromiumKnifeTier =
                 tier != null
@@ -42,10 +42,22 @@ public class FarmersDelightKnifeStatsMixin {
                         && tier.getEnchantmentValue() == 15
                         && tier.getSpeed() == 9.0F;
 
+        // Caverns & Chasms silver (AD silver knife). Same numbers as {@code ModTiers.SILVER}.
+        boolean isSilverKnifeTier =
+                tier != null
+                        && tier != Tiers.IRON
+                        && tier.getUses() == 157
+                        && tier.getAttackDamageBonus() == 1.0F
+                        && tier.getEnchantmentValue() == 18
+                        && tier.getSpeed() == 9.0F;
+
         if (isFarmersDelightFlintTier) {
             desiredDamage = 0.5F;
         } else if (tier == Tiers.IRON) {
             desiredDamage = 1.0F;
+        } else if (isSilverKnifeTier) {
+            // 0 physical; C&C magic is applied in {@link com.vansqmod.compat.PackItemAttributes}.
+            desiredDamage = 0.0F;
         } else if (tier == Tiers.DIAMOND || isNecromiumKnifeTier) {
             desiredDamage = 1.5F;
         } else if (tier == Tiers.NETHERITE) {

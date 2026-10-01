@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "caverns_and_chasms:silver_block"
+  },
+  "base": {
+    "item": "minecraft:shield"
+  },
+  "result": {
+    "id": "vansqmod:silver_targe"
+  },
+  "template": {
+    "item": "vansqmod:deepslate_upgrade_smithing_template"
+  }
+}

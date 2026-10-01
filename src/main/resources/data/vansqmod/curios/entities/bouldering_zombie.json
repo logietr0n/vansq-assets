@@ -1,0 +1,10 @@
+{
+  "entities": ["vansqmod:bouldering_zombie"],
+  "slots": [
+    "head",
+    "necklace",
+    "belt",
+    "hands",
+    "feet"
+  ]
+}

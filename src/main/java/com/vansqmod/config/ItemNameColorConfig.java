@@ -78,7 +78,7 @@ public final class ItemNameColorConfig {
         JsonObject root = new JsonObject();
         root.addProperty(
                 "_comment",
-                "Override item name colors. Use /vansqmod reloadconfig after editing."
+                "Override item name colors. Use /vansq reloadconfig after editing."
         );
         root.addProperty(
                 "_values",

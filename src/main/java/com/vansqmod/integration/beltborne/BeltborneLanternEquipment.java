@@ -4,8 +4,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.LanternBlock;
 import net.oxcodsnet.beltborne_lanterns.common.LampRegistry;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotContext;
@@ -29,8 +31,57 @@ public final class BeltborneLanternEquipment {
     private BeltborneLanternEquipment() {
     }
 
+    public static boolean isHangingLanternItem(Item item) {
+        return item instanceof BlockItem blockItem
+                && blockItem.getBlock().defaultBlockState().hasProperty(LanternBlock.HANGING);
+    }
+
+    public static boolean isHangingLantern(ItemStack stack) {
+        return !stack.isEmpty() && isHangingLanternItem(stack.getItem());
+    }
+
     public static boolean isLamp(ItemStack stack) {
-        return !stack.isEmpty() && LampRegistry.isLamp(stack);
+        if (stack.isEmpty()) {
+            return false;
+        }
+        return LampRegistry.isLamp(stack) || isHangingLantern(stack);
+    }
+
+    /**
+     * Belt may hold a toolbelt in another index, but only one lantern across all belt slots.
+     * Same lanterns must not merge. A different lantern may swap into the occupied lantern slot.
+     */
+    public static boolean canPlaceLanternInBelt(SlotContext slotContext, ItemStack stack) {
+        if (!BELT_SLOT.equals(slotContext.identifier()) || !isLamp(stack)) {
+            return false;
+        }
+        LivingEntity entity = slotContext.entity();
+        if (entity == null) {
+            return true;
+        }
+        Optional<SlotResult> existing = findBeltLampSlot(entity);
+        if (existing.isEmpty()) {
+            return true;
+        }
+        SlotResult lamp = existing.get();
+        if (lamp.slotContext().index() != slotContext.index()) {
+            return false;
+        }
+        return !ItemStack.isSameItemSameComponents(lamp.stack(), stack);
+    }
+
+    /**
+     * Right-click / empty-slot insert: only when no belt lantern is equipped yet.
+     */
+    public static boolean canInsertLanternInBelt(SlotContext slotContext, ItemStack stack) {
+        if (!BELT_SLOT.equals(slotContext.identifier()) || !isLamp(stack)) {
+            return false;
+        }
+        LivingEntity entity = slotContext.entity();
+        if (entity == null) {
+            return true;
+        }
+        return findBeltLampSlot(entity).isEmpty();
     }
 
     public static Optional<ItemStack> getBeltLamp(LivingEntity entity) {

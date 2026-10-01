@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "born_in_chaos_v1:armor_plate_from_dark_metal"
+  },
+  "base": {
+    "item": "vansqmod:necromium_guard"
+  },
+  "result": {
+    "id": "vansqmod:chaos_fortress"
+  },
+  "template": {
+    "item": "born_in_chaos_v1:dark_upgrade"
+  }
+}

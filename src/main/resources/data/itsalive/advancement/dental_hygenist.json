@@ -1,0 +1,42 @@
+{
+  "display": {
+    "icon": {
+      "id": "itsalive:brushed_sculk_tooth"
+    },
+    "title": {
+      "translate": "itsalive.advancement.dental_hygenist.title"
+    },
+    "description": {
+      "translate": "itsalive.advancement.dental_hygenist.description"
+    }
+  },
+  "parent": "minecraft:adventure/salvage_sherd",
+  "criteria": {
+    "dental_hygenist": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": [
+                "minecraft:brush"
+              ]
+            }
+          },
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": [
+                  "itsalive:sculk_tooth",
+                  "itsalive:brushed_sculk_tooth"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

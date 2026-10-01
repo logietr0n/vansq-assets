@@ -8,9 +8,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 /**
- * Hard-hides Distant Horizons LOD clouds at night.
- * Alpha fading alone is unreliable with some render paths / shader packs;
- * forcing {@code setActive(false)} skips drawing entirely.
+ * Stops drawing Distant Horizons LOD clouds once the time-of-day fade reaches
+ * full night. Twilight opacity is applied in {@link com.vansqmod.client.DhCloudDayNight}.
  */
 @Mixin(
         targets = "com.seibel.distanthorizons.core.render.renderer.CloudRenderHandler",

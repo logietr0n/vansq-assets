@@ -25,6 +25,9 @@ run-data
 
 repo
 
+# scratch reference textures (delete later)
+src/main/resources/assets/vansqmod/textures/entity/tempref/
+
 # local dependency / decompiled mod sources (do not upload)
 libs/
 

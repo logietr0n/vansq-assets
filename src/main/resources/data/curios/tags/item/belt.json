@@ -13,6 +13,14 @@
     "caverns_and_chasms:weathered_copper_lantern",
     "dungeonsdelight:living_lantern",
     "minecraft:lantern",
-    "minecraft:soul_lantern"
+    "minecraft:soul_lantern",
+    {
+      "id": "#c:lanterns",
+      "required": false
+    }
+  ],
+  "remove": [
+    "artifacts:chorus_totem"
   ]
 }
+

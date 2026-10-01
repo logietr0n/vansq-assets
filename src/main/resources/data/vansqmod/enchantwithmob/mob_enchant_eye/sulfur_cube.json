@@ -1,0 +1,6 @@
+{
+  "entity_type": [
+    "minecraft:sulfur_cube"
+  ],
+  "texture": "vansqmod:textures/entity/enchant_eye/enchanted_sulfur_cube_eyes.png"
+}

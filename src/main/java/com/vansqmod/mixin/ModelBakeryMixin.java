@@ -29,5 +29,11 @@ public abstract class ModelBakeryMixin {
                 ModelResourceLocation.inventory(ResourceLocation.withDefaultNamespace("necromium_spear_in_hand")));
         this.loadSpecialItemModelAndDependencies(
                 ModelResourceLocation.inventory(ResourceLocation.fromNamespaceAndPath("vansqmod", "scythe_in_hand")));
+        this.loadSpecialItemModelAndDependencies(
+                ModelResourceLocation.inventory(ResourceLocation.withDefaultNamespace("spyglass_in_hand")));
+        this.loadSpecialItemModelAndDependencies(
+                ModelResourceLocation.inventory(ResourceLocation.fromNamespaceAndPath("vansqmod", "rose_gold_doubuckler_in_hand")));
+        this.loadSpecialItemModelAndDependencies(
+                ModelResourceLocation.inventory(ResourceLocation.fromNamespaceAndPath("vansqmod", "rose_gold_doubuckler_blocking")));
     }
 }

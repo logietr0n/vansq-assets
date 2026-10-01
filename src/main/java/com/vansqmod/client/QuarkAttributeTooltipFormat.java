@@ -50,6 +50,10 @@ public final class QuarkAttributeTooltipFormat {
             return null;
         }
 
+        if (entry.attribute().is(Attributes.KNOCKBACK_RESISTANCE)) {
+            return formatPercentAttribute(entry, baseVal);
+        }
+
         ResourceLocation attributeId = entry.attribute().unwrapKey()
                 .map(key -> key.location())
                 .orElse(null);
@@ -57,17 +61,7 @@ public final class QuarkAttributeTooltipFormat {
             return null;
         }
 
-        AttributeModifier.Operation op = entry.modifier().operation();
-        double percentValue;
-        if (op == AttributeModifier.Operation.ADD_VALUE) {
-            percentValue = entry.modifier().amount() + baseVal;
-        } else if (op == AttributeModifier.Operation.ADD_MULTIPLIED_BASE) {
-            percentValue = entry.modifier().amount();
-        } else {
-            return null;
-        }
-
-        return formatSignedPercent(percentValue);
+        return formatPercentAttribute(entry, baseVal);
     }
 
     private static boolean isVansqSanguineHealthModifier(ResourceLocation modifierId) {
@@ -79,6 +73,19 @@ public final class QuarkAttributeTooltipFormat {
         return VansqMod.MODID.equals(modifierId.getNamespace())
                 && (modifierId.getPath().startsWith("chainmail_attack_damage.")
                 || modifierId.getPath().startsWith("sanguine_attack_damage."));
+    }
+
+    private static MutableComponent formatPercentAttribute(ItemAttributeModifiers.Entry entry, double baseVal) {
+        AttributeModifier.Operation op = entry.modifier().operation();
+        double percentValue;
+        if (op == AttributeModifier.Operation.ADD_VALUE) {
+            percentValue = entry.modifier().amount() + baseVal;
+        } else if (op == AttributeModifier.Operation.ADD_MULTIPLIED_BASE) {
+            percentValue = entry.modifier().amount();
+        } else {
+            return null;
+        }
+        return formatSignedPercent(percentValue);
     }
 
     private static MutableComponent formatFlat(double value) {

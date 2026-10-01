@@ -1,0 +1,16 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "creeperoverhaul"
+    }
+  ],
+  "type": "neoforge:add_spawns",
+  "biomes": "#vansqmod:spawns_ocean_creeper",
+  "spawners": {
+    "type": "creeperoverhaul:ocean_creeper",
+    "weight": 1,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

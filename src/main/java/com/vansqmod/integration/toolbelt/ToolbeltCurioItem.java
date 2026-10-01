@@ -3,6 +3,8 @@ package com.vansqmod.integration.toolbelt;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurio;
@@ -50,7 +52,22 @@ public final class ToolbeltCurioItem implements ICurioItem {
 
     @Override
     public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack) {
-        return canEquip(slotContext, stack);
+        // CuriosHotbarEquip handles right-click so this does not race with vanilla legs equip.
+        return false;
+    }
+
+    @Override
+    public void onEquipFromUse(SlotContext slotContext, ItemStack stack) {
+        ICurio.SoundInfo sound = getEquipSound(slotContext, stack);
+        LivingEntity entity = slotContext.entity();
+        entity.level().playSound(
+                null,
+                entity.blockPosition(),
+                sound.soundEvent(),
+                SoundSource.PLAYERS,
+                sound.volume(),
+                sound.pitch()
+        );
     }
 
     @Nonnull

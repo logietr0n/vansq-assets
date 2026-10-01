@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "born_in_chaos_v1:missionary_hat_helmet",
+      "required": false
+    },
+    {
+      "id": "caverns_and_chasms:tether_potion",
+      "required": false
+    },
+    {
+      "id": "caverns_and_chasms:impact_potion",
+      "required": false
+    },
+    {
+      "id": "caverns_and_chasms:trail_potion",
+      "required": false
+    },
+    {
+      "id": "vansqmod:golden_crown",
+      "required": false
+    },
+    {
+      "id": "vansqmod:silver_crown",
+      "required": false
+    }
+  ]
+}

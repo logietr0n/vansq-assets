@@ -1,0 +1,30 @@
+{
+	"loader": "neoforge:separate_transforms",
+	"gui_light": "front",
+	"base": {
+		"parent": "vansqmod:item/rose_gold_doubuckler_gui"
+	},
+	"perspectives": {
+		"gui": {
+			"parent": "vansqmod:item/rose_gold_doubuckler_gui"
+		},
+		"ground": {
+			"parent": "vansqmod:item/rose_gold_doubuckler_gui"
+		},
+		"fixed": {
+			"parent": "vansqmod:item/rose_gold_doubuckler_gui"
+		},
+		"firstperson_righthand": {
+			"parent": "vansqmod:item/rose_gold_doubuckler_blocking"
+		},
+		"firstperson_lefthand": {
+			"parent": "vansqmod:item/rose_gold_doubuckler_blocking"
+		},
+		"thirdperson_righthand": {
+			"parent": "vansqmod:item/rose_gold_doubuckler_blocking"
+		},
+		"thirdperson_lefthand": {
+			"parent": "vansqmod:item/rose_gold_doubuckler_blocking"
+		}
+	}
+}

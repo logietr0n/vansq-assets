@@ -1,0 +1,11 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#vansqmod:has_mellowed",
+  "spawners": {
+    "type": "vansqmod:mellowed",
+    "weight": 25,
+    "minCount": 1,
+    "maxCount": 1
+  },
+  "spawnGroup": "monster"
+}

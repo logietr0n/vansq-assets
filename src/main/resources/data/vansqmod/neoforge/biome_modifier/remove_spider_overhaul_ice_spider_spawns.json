@@ -1,0 +1,13 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "spider_overhaul"
+    }
+  ],
+  "type": "neoforge:remove_spawns",
+  "biomes": "#spider_overhaul:is_ice",
+  "entity_types": [
+    "spider_overhaul:ice_spider"
+  ]
+}

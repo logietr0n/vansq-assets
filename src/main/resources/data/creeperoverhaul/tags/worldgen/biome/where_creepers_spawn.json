@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:ocean",
+    "minecraft:deep_ocean",
+    {
+      "id": "clifftree:kelp_forest",
+      "required": false
+    },
+    {
+      "id": "clifftree:stone_ocean",
+      "required": false
+    }
+  ]
+}

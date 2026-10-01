@@ -1,0 +1,37 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "incubation"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_rare_egg": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": "vansqmod:rare_egg" }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "vansqmod:rare_egg_crate"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_rare_egg"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "vansqmod:rare_egg_crate",
+      "vansqmod:rare_egg_crate_unpack"
+    ]
+  }
+}

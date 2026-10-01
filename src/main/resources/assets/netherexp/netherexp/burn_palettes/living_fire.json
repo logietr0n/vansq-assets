@@ -1,0 +1,19 @@
+{
+  "blocks": [
+    "dungeonsdelight:living_fire",
+    "dungeonsdelight:living_torch",
+    "dungeonsdelight:wall_living_torch",
+    "dungeonsdelight:living_campfire",
+    "dungeonsdelight:living_lantern"
+  ],
+  "replace_particles": [
+    "dungeonsdelight:living_flame",
+    "dungeonsdelight:living_flame_effect"
+  ],
+  "palette1": "#F7F759",
+  "palette2": "#D2EA7F",
+  "palette3": "#A4D16C",
+  "palette4": "#62AE4F",
+  "palette5": "#4B8F47",
+  "palette6": "#387E42"
+}

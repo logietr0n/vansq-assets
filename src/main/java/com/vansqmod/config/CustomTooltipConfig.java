@@ -29,11 +29,12 @@ import java.util.Map;
  * Loads {@code config/vansqmod/vansq_tooltips.json}. Each item ID maps to one or more tooltip lines.
  * <p>
  * Lines can be a plain string, or an object with {@code text}, optional {@code color}, and optional
- * {@code italic} / {@code bold}. Colors may be Minecraft names ({@code gray}, {@code red}, {@code gold}),
- * hex ({@code #RRGGBB}), or legacy section-sign codes inside {@code text} ({@code §7gray}).
+ * {@code italic} / {@code bold}. Uncolored lines are always light gray ({@link ChatFormatting#GRAY}).
+ * Colors may be Minecraft names ({@code gray}, {@code red}, {@code gold}), hex ({@code #RRGGBB}), or
+ * legacy section-sign codes inside {@code text} ({@code §7gray}).
  * <p>
  * Placement: set global {@code _placement} to {@code after_name} or {@code bottom}, or per-item
- * {@code "placement": "bottom"} with a {@code lines} array. Reload with {@code /vansqmod reloadconfig}.
+ * {@code "placement": "bottom"} with a {@code lines} array. Reload with {@code /vansq reloadconfig}.
  */
 public final class CustomTooltipConfig {
 
@@ -97,7 +98,7 @@ public final class CustomTooltipConfig {
         JsonObject root = new JsonObject();
         root.addProperty(
                 "_comment",
-                "Map item IDs to lines. Use /vansqmod reloadconfig after editing. Placement: after_name (default) or bottom."
+                "Map item IDs to lines. Use /vansq reloadconfig after editing. Placement: after_name (default) or bottom."
         );
         root.addProperty("_placement", "after_name");
         root.addProperty(
@@ -187,13 +188,33 @@ public final class CustomTooltipConfig {
         return parseLine(text, color, italic, bold);
     }
 
+    /**
+     * Fresh copy for the tooltip list. Uncolored text is forced to light gray so later
+     * handlers cannot leave a shared component as white, and sibling-based drawers still
+     * see an explicit color.
+     */
+    public static Component prepareTooltipLine(Component line) {
+        return forceDefaultGray(line);
+    }
+
+    private static MutableComponent forceDefaultGray(Component component) {
+        Style style = component.getStyle();
+        if (style.getColor() == null) {
+            style = style.applyFormat(ChatFormatting.GRAY);
+        }
+        MutableComponent out = MutableComponent.create(component.getContents()).setStyle(style);
+        for (Component sibling : component.getSiblings()) {
+            out.append(forceDefaultGray(sibling));
+        }
+        return out;
+    }
+
     private static Component parseLine(String text, @Nullable String colorName, boolean italic, boolean bold) {
-        Style base = Style.EMPTY;
+        // Light gray unless the line has a resolved assigned color. Invalid names stay gray.
+        Style base = Style.EMPTY.applyFormat(ChatFormatting.GRAY);
         TextColor named = resolveColor(colorName);
         if (named != null) {
             base = base.withColor(named);
-        } else if (colorName == null && !containsLegacyFormatting(text)) {
-            base = base.withColor(ChatFormatting.GRAY);
         }
         if (italic) {
             base = base.withItalic(true);
@@ -201,40 +222,47 @@ public final class CustomTooltipConfig {
         if (bold) {
             base = base.withBold(true);
         }
-        MutableComponent component = containsLegacyFormatting(text)
+        MutableComponent inner = containsLegacyFormatting(text)
                 ? parseLegacyText(text, base)
-                : Component.literal(text).withStyle(base);
-        return component;
+                : Component.literal(text).setStyle(base);
+        // Empty parent + sibling: drawers that ignore root style still pick up the color.
+        return Component.empty().append(inner);
     }
 
     private static boolean containsLegacyFormatting(String text) {
-        return text.indexOf('\u00A7') >= 0 || text.indexOf('&') >= 0;
+        for (int i = 0; i < text.length() - 1; i++) {
+            char c = text.charAt(i);
+            if ((c == '\u00A7' || c == '&') && ChatFormatting.getByCode(text.charAt(i + 1)) != null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static MutableComponent parseLegacyText(String input, Style baseStyle) {
-        String normalized = input.replace('&', '\u00A7');
         MutableComponent result = Component.empty();
         StringBuilder segment = new StringBuilder();
         Style style = baseStyle;
 
-        for (int i = 0; i < normalized.length(); i++) {
-            char c = normalized.charAt(i);
-            if (c == '\u00A7' && i + 1 < normalized.length()) {
-                if (!segment.isEmpty()) {
-                    result.append(Component.literal(segment.toString()).withStyle(style));
-                    segment.setLength(0);
-                }
-                ChatFormatting fmt = ChatFormatting.getByCode(normalized.charAt(++i));
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if ((c == '\u00A7' || c == '&') && i + 1 < input.length()) {
+                ChatFormatting fmt = ChatFormatting.getByCode(input.charAt(i + 1));
                 if (fmt != null) {
+                    if (!segment.isEmpty()) {
+                        result.append(Component.literal(segment.toString()).setStyle(style));
+                        segment.setLength(0);
+                    }
                     style = applyFormatting(baseStyle, style, fmt);
+                    i++;
+                    continue;
                 }
-                continue;
             }
             segment.append(c);
         }
 
         if (!segment.isEmpty()) {
-            result.append(Component.literal(segment.toString()).withStyle(style));
+            result.append(Component.literal(segment.toString()).setStyle(style));
         }
         return result;
     }

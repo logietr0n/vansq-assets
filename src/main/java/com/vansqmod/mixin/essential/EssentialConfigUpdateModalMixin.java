@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(targets = "gg.essential.config.EssentialConfig", remap = false)
 public abstract class EssentialConfigUpdateModalMixin {
 
-    @Inject(method = "getUpdateModal", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "getUpdateModal", at = @At("HEAD"), cancellable = true, remap = false, require = 0)
     private void vansqmod$forceUpdateModalOff(CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(false);
     }

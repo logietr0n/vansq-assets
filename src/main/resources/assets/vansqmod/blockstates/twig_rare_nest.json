@@ -1,0 +1,57 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "incubation:block/twig_nest"
+      }
+    },
+    {
+      "apply": {
+        "model": "vansqmod:block/one_rare_egg"
+      },
+      "when": {
+        "eggs": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "vansqmod:block/two_rare_eggs"
+      },
+      "when": {
+        "eggs": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "vansqmod:block/three_rare_eggs"
+      },
+      "when": {
+        "eggs": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "vansqmod:block/four_rare_eggs"
+      },
+      "when": {
+        "eggs": "4"
+      }
+    },
+    {
+      "apply": {
+        "model": "vansqmod:block/five_rare_eggs"
+      },
+      "when": {
+        "eggs": "5"
+      }
+    },
+    {
+      "apply": {
+        "model": "vansqmod:block/six_rare_eggs"
+      },
+      "when": {
+        "eggs": "6"
+      }
+    }
+  ]
+}

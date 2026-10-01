@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:spawns_cold_variant_frogs",
+    "#minecraft:spawns_snow_foxes",
+    {
+      "id": "#c:is_cold",
+      "required": false
+    },
+    {
+      "id": "#c:is_snowy",
+      "required": false
+    },
+    {
+      "id": "#c:is_icy",
+      "required": false
+    },
+    {
+      "id": "yungscavebiomes:frosted_caves",
+      "required": false
+    }
+  ]
+}

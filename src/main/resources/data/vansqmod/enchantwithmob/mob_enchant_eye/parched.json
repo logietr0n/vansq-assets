@@ -1,0 +1,6 @@
+{
+  "entity_type": [
+    "minecraft:parched"
+  ],
+  "texture": "vansqmod:textures/entity/enchant_eye/enchanted_parched_eyes.png"
+}

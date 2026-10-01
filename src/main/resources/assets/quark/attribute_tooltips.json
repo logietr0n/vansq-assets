@@ -9,7 +9,7 @@
       "head": "flat",
       "potion": "flat"
     },
-    "texture": "caverns_and_chasms:quark_attribute/magic_damage",
+    "texture": "vansqmod:quark_attribute/magic_damage",
     "compare": "higher_better"
   },
   "caverns_and_chasms:magic_protection": {
@@ -22,7 +22,7 @@
       "head": "percentage",
       "potion": "percentage"
     },
-    "texture": "caverns_and_chasms:quark_attribute/magic_protection",
+    "texture": "vansqmod:quark_attribute/magic_protection",
     "compare": "higher_better"
   },
   "caverns_and_chasms:experience_boost": {
@@ -35,7 +35,7 @@
       "head": "percentage",
       "potion": "percentage"
     },
-    "texture": "caverns_and_chasms:quark_attribute/experience_boost",
+    "texture": "vansqmod:quark_attribute/experience_boost",
     "compare": "higher_better"
   },
   "caverns_and_chasms:lifesteal": {
@@ -48,7 +48,7 @@
       "head": "percentage",
       "potion": "percentage"
     },
-    "texture": "caverns_and_chasms:quark_attribute/lifesteal",
+    "texture": "vansqmod:quark_attribute/lifesteal",
     "compare": "higher_better"
   },
   "caverns_and_chasms:stealth": {
@@ -61,7 +61,7 @@
       "head": "percentage",
       "potion": "percentage"
     },
-    "texture": "caverns_and_chasms:quark_attribute/stealth",
+    "texture": "vansqmod:quark_attribute/stealth",
     "compare": "higher_better"
   },
   "caverns_and_chasms:slowness_infliction": {
@@ -74,7 +74,7 @@
       "head": "flat",
       "potion": "flat"
     },
-    "texture": "caverns_and_chasms:quark_attribute/slowness_infliction",
+    "texture": "vansqmod:quark_attribute/slowness_infliction",
     "compare": "higher_better"
   },
   "caverns_and_chasms:slowness_retribution": {
@@ -87,7 +87,7 @@
       "head": "flat",
       "potion": "flat"
     },
-    "texture": "caverns_and_chasms:quark_attribute/slowness_retribution",
+    "texture": "vansqmod:quark_attribute/slowness_retribution",
     "compare": "higher_better"
   },
   "galosphere:illager_resistance": {
@@ -100,7 +100,7 @@
       "head": "flat",
       "potion": "flat"
     },
-    "texture": "galosphere:quark_attribute/illager_resistance",
+    "texture": "vansqmod:quark_attribute/illager_resistance",
     "compare": "higher_better"
   }
 }

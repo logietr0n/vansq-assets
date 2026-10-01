@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bogged",
+    "minecraft:cave_spider",
+    "vansqmod:putrid",
+    {
+      "id": "variantsandventures:verdant",
+      "required": false
+    },
+    {
+      "id": "variantsandventures:thicket",
+      "required": false
+    }
+  ]
+}
